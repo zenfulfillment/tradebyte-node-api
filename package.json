@@ -1,0 +1,27 @@
+{
+  "name": "tradebyte-node-api",
+  "version": "1.0.0",
+  "description": "Node module to access Tradebyte REST API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/zenfulfillment/tradebyte-node-api.git"
+  },
+  "keywords": [
+    "tradebyte",
+    "api"
+  ],
+  "author": "Denis Ciccale (denis@zenfulfillment.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zenfulfillment/tradebyte-node-api/issues"
+  },
+  "homepage": "https://github.com/zenfulfillment/tradebyte-node-api#readme",
+  "dependencies": {
+    "request-promise": "^4.2.4",
+    "xml2js": "^0.4.19"
+  }
+}
