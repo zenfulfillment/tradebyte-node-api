@@ -1,15 +1,18 @@
-# gocardless node api
+# tradebyte node api
 
 ## Usage
 
 ```js
 const Promise = require('bluebird');
 
-const gocardless = require('gocardless-node-api')('your-gocardless-token');
+const tradebyte = require('tradebyte-node-api')({
+  hnr: 1234,
+  user: 'my-username',
+  pass: 'my-password',
+  isSandbox: true // Remove this line if you want to hit Tradebyte production server
+});
 
-gocardless.post('redirect_flows', {
-    session_token: 'dummy-session-token',
-    success_redirect_url: 'https://myapp.example.com'
-  })
+tradebyte
+  .getOrders({channel: 8})
   .then((res) => console.log(res));
 ```
