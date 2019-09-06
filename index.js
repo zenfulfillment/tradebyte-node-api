@@ -52,8 +52,6 @@ module.exports = ({hnr, user, pass, isSandbox = false} = {}) => {
       const builder = new xml2js.Builder();
       const xml = builder.buildObject(data);
 
-      console.log(xml);
-
       return _request({url, method: 'POST', body: xml});
     },
 
