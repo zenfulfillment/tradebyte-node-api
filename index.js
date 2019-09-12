@@ -50,19 +50,22 @@ module.exports = ({hnr, user, pass, isSandbox = false} = {}) => {
       }
 
       const builder = new xml2js.Builder();
-      const xml = builder.buildObject(data);
+      const body = builder.buildObject(data);
 
-      return _request({url, method: 'POST', body: xml});
+      return _request({url, method: 'POST', body});
     },
 
-    async post(url, body) {
+    async post(url, data) {
       if (!url) {
         throw new Error('Missing endpoint');
       }
 
-      if (!body) {
-        throw new Error('Missing body');
+      if (!data) {
+        throw new Error('Missing data');
       }
+
+      const builder = new xml2js.Builder();
+      const body = builder.buildObject(data);
 
       return _request({url, method: 'POST', body});
     }
