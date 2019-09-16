@@ -1,22 +1,21 @@
-const fs = require('fs');
 const {promisify} = require('util');
 const request = require('request-promise');
 const xml2js = require('xml2js');
 
 const parseString = promisify(xml2js.parseString);
-const TRADEBYTE_API_URL = 'https://rest.tradebyte.com';
-const TRADEBYTE_STAGING_API_URL = 'https://reststaging.tradebyte.com';
+const TRADEBYTE_API_URL = 'rest.trade-server.net';
+const TRADEBYTE_STAGING_API_URL = 'reststaging.tradebyte.com';
 
 module.exports = ({hnr, user, pass, isSandbox = false} = {}) => {
   if (!hnr || !user || !pass) {
     throw new Error('Missing credentials');
   }
 
-  const baseUrl = isSandbox ? TRADEBYTE_STAGING_API_URL : TRADEBYTE_API_URL;
+  const apiUrl = isSandbox ? TRADEBYTE_STAGING_API_URL : TRADEBYTE_API_URL;
 
   function _request(args) {
     return request.defaults({
-      baseUrl: `https://${user}:${pass}@reststaging.tradebyte.com/${hnr}`
+      baseUrl: `https://${user}:${pass}@${apiUrl}/${hnr}`
     })(args).promise();
   }
 
@@ -29,9 +28,7 @@ module.exports = ({hnr, user, pass, isSandbox = false} = {}) => {
       const orders = json ? json.ORDER_LIST : [];
       const ordersArray = orders && !Array.isArray(orders) ? [orders] : orders;
 
-      fs.writeFileSync(`${__dirname}/res.json`, JSON.stringify(ordersArray, null, 2))
-
-      return ordersArray.map(({ORDER}) => ORDER);
+      return ordersArray.map(({ORDER}) => Array.isArray(ORDER) ? ORDER[0] : ORDER);
     },
 
     async setExportedOrder(orderId) {
